@@ -3,14 +3,27 @@ package com.course.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Car {
 	private String brand;
 	private String color;
 	private String type;
 	private int price;
 	private boolean available;
+	@JsonFormat(pattern = "dd-MMM-yyyy" ,timezone = "Asia/Tehran")
 	private LocalDate firstReleaseDate;
+	@JsonInclude(value = Include.NON_EMPTY)
 	private List<String> additionalFeatures;
+	@JsonUnwrapped
+	private Engine engine;
+	private List<Tier> tiers;
 	
 	public Car() {}
 	
@@ -65,11 +78,23 @@ public class Car {
 	public void setAdditionalFeatures(List<String> additionalFeatures) {
 		this.additionalFeatures = additionalFeatures;
 	}
+	public Engine getEngine() {
+		return engine;
+	}
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+	public List<Tier> getTiers() {
+		return tiers;
+	}
+	public void setTiers(List<Tier> tiers) {
+		this.tiers = tiers;
+	}
 
 	@Override
 	public String toString() {
 		return "Car [brand=" + brand + ", color=" + color + ", type=" + type + ", price=" + price + ", available="
 				+ available + ", firstReleaseDate=" + firstReleaseDate + ", additionalFeatures=" + additionalFeatures
-				+ "]";
+				+ ", engine=" + engine + ", tiers=" + tiers + "]";
 	}
 }
