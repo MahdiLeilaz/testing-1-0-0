@@ -1,5 +1,6 @@
 package com.course.service;
 
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class RandomCarService implements CarService{
 		var color = COLORS.get(ThreadLocalRandom.current().nextInt(0, COLORS.size()));
 		var type = TYPES.get(ThreadLocalRandom.current().nextInt(0, TYPES.size()));
 
-		return new Car(brand, color, type);
+		return new Car(brand, color, type, 10000, true, LocalDate.now());
 	}
 	
 }
