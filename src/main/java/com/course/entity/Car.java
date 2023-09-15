@@ -3,6 +3,12 @@ package com.course.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -10,14 +16,18 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+@Document(indexName = "practical-java")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Car {
+	@Id
+	private String id;
 	private String brand;
 	private String color;
 	private String type;
 	private int price;
 	private boolean available;
-	@JsonFormat(pattern = "dd-MMM-yyyy" ,timezone = "Asia/Tehran")
+	@Field(type = FieldType.Date, format = DateFormat.date)
+	@JsonFormat(pattern = "yyyy-MM-dd" ,timezone = "Asia/Tehran")
 	private LocalDate firstReleaseDate;
 	@JsonInclude(value = Include.NON_EMPTY)
 	private List<String> additionalFeatures;
@@ -36,6 +46,13 @@ public class Car {
 		this.firstReleaseDate = firstReleaseDate;
 	}
 
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getBrand() {
 		return brand;
 	}

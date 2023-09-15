@@ -9,7 +9,15 @@ spring:
   main:
     banner-mode: OFF
   jackson:
-    property-naming-strategy: SNAKE_CASE
-    
+    property-naming-strategy: SNAKE_CASE 
+  data:
+    elasticsearch:
+      repositories:
+        enabled: TRUE
+  elasticsearch:
+    uris: http://localhost:9200
+    username: elastic
+    password: elastic    
+  
 server:
   port: 8001
